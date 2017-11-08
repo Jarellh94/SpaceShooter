@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour {
 
         Projectile proj = oth.gameObject.GetComponent<Projectile>();
 
-        if (proj && proj.gameObject.tag == "EnemyProjectile")
+        if (proj)
         {
             Damage(proj.GetDamage());
             proj.Hit();

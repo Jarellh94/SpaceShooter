@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour {
 
         Projectile proj = oth.gameObject.GetComponent<Projectile>();
 
-        if (proj && proj.gameObject.tag == "PlayerProjectile")
+        if (proj)
         {
             Damage(proj.GetDamage());
             proj.Hit();

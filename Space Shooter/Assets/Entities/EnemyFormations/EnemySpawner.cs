@@ -17,10 +17,7 @@ public class EnemySpawner : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 
-        foreach(Transform child in transform)
-        {
-            GameObject enemy = (GameObject)Instantiate(enemyPrefab, child, false);
-        }
+        SpawnEnemies();
 
         float distance = transform.position.z - Camera.main.transform.position.z;
         //Calculates the xMin and xMax using the camera. x and y values are according to screen coordinates. Bottom left = 0, 0; Top left = 0, 1; Bottom Right = 1, 0; Top Right = 1, 1;
@@ -37,6 +34,11 @@ public class EnemySpawner : MonoBehaviour
 	void Update ()
     {
         Move();
+
+        if(AllMembersDead())
+        {
+            SpawnEnemies();
+        }
 	}
 
     void Move()
@@ -52,5 +54,25 @@ public class EnemySpawner : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(width, height, 0));
+    }
+
+    bool AllMembersDead()
+    {
+
+        foreach(Transform childPositionGameObject in transform)
+        {
+            if (childPositionGameObject.childCount > 0)
+                return false;
+        }
+
+        return true;
+    }
+
+    void SpawnEnemies()
+    {
+        foreach (Transform child in transform)
+        {
+            GameObject enemy = (GameObject)Instantiate(enemyPrefab, child, false);
+        }
     }
 }
