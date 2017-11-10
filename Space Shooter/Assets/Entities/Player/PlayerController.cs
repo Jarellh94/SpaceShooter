@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
     public float projectileSpeed = 5f;
     public float fireRate = .2f;
     public float health = 150f;
+    public AudioClip shoot;
+    public AudioClip die;
 
     float xMin, xMax, yMin, yMax;
     float padding = 0.5f;
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour {
         float newX = Mathf.Clamp(transform.position.x, xMin, xMax);
         float newY = Mathf.Clamp(transform.position.y, yMin, yMax);
         transform.position = new Vector3(newX, newY, transform.position.z);
+       
     }
 
     void Shoot()
@@ -89,6 +92,7 @@ public class PlayerController : MonoBehaviour {
         Vector3 startPosition = transform.position + new Vector3(0, 0.5f, 0);
         GameObject beam = (GameObject)Instantiate(projectile, transform.position, Quaternion.identity);
         beam.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed); //Initiates projectile movement
+        AudioSource.PlayClipAtPoint(shoot, transform.position);
     }
 
     void OnTriggerEnter2D(Collider2D oth)
@@ -110,6 +114,7 @@ public class PlayerController : MonoBehaviour {
 
         if (health <= 0)
         {
+            AudioSource.PlayClipAtPoint(die, transform.position);
             Destroy(gameObject);
         }
     }

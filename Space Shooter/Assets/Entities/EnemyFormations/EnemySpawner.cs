@@ -9,15 +9,17 @@ public class EnemySpawner : MonoBehaviour
     public float height = 5f;
 
     public float moveSpeed = 2f;
+    public float spawnDelay = 2f;
 
     int dir = 1;
     float xMax;
     float xMin;
+    public int startIndex = 0;
 
 	// Use this for initialization
 	void Start () {
 
-        SpawnEnemies();
+        SpawnUntilFull();
 
         float distance = transform.position.z - Camera.main.transform.position.z;
         //Calculates the xMin and xMax using the camera. x and y values are according to screen coordinates. Bottom left = 0, 0; Top left = 0, 1; Bottom Right = 1, 0; Top Right = 1, 1;
@@ -35,11 +37,13 @@ public class EnemySpawner : MonoBehaviour
     {
         Move();
 
-        if(AllMembersDead())
+        if (AllMembersDead() && startIndex == 0)
         {
-            SpawnEnemies();
+            startIndex = 0;
+            SpawnUntilFull();
         }
-	}
+
+    }
 
     void Move()
     {
@@ -58,7 +62,6 @@ public class EnemySpawner : MonoBehaviour
 
     bool AllMembersDead()
     {
-
         foreach(Transform childPositionGameObject in transform)
         {
             if (childPositionGameObject.childCount > 0)
@@ -68,11 +71,42 @@ public class EnemySpawner : MonoBehaviour
         return true;
     }
 
+    Transform NextFreePosition(int index)
+    {
+        for(; index < transform.childCount; index++)
+        {
+            Transform position = transform.GetChild(index);
+
+            if (position.childCount <= 0)
+                return position;
+        }
+
+        return null;
+    }
+
     void SpawnEnemies()
     {
         foreach (Transform child in transform)
         {
             GameObject enemy = (GameObject)Instantiate(enemyPrefab, child, false);
         }
+    }
+
+    void SpawnUntilFull()
+    {
+        Transform freePosition = NextFreePosition(startIndex);
+
+        if (freePosition != null)
+        {
+            GameObject enemy = (GameObject)Instantiate(enemyPrefab, freePosition, false);
+            startIndex++;
+        }
+
+        if (NextFreePosition(startIndex))
+        {
+            Invoke("SpawnUntilFull", spawnDelay);
+        }
+        else
+            startIndex = 0;
     }
 }

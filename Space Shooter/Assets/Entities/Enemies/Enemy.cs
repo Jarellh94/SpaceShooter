@@ -9,13 +9,17 @@ public class Enemy : MonoBehaviour {
     public float projectileSpeed = 5f;
     public float shootInterval = 2f;
     public float health = 150;
+    public int scoreValue = 150;
+    public AudioClip shoot;
+    public AudioClip die;
 
     float timer = 0;
+    ScoreKeeper keeper;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    // Use this for initialization
+    void Start () {
+        keeper = GameObject.FindObjectOfType<ScoreKeeper>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -35,6 +39,7 @@ public class Enemy : MonoBehaviour {
 
     void Fire()
     {
+        AudioSource.PlayClipAtPoint(shoot, transform.position);
         Vector3 startPosition = transform.position + new Vector3(0, -0.5f, 0);
         GameObject beam = (GameObject)Instantiate(projectile, startPosition, Quaternion.identity);
         beam.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -1 * projectileSpeed); //Initiates projectile movement
@@ -59,6 +64,8 @@ public class Enemy : MonoBehaviour {
 
         if (health <= 0)
         {
+            AudioSource.PlayClipAtPoint(die, transform.position);
+            keeper.Score(scoreValue);
             Destroy(gameObject);
         }
     }
