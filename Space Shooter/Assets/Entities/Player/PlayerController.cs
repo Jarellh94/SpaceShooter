@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 
     float xMin, xMax, yMin, yMax;
     float padding = 0.5f;
+    bool alive = true;
 
     private Vector3 MoveVector;
 
@@ -35,8 +36,11 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Shoot();
-        Move();
+        if (alive)
+        {
+            Shoot();
+            Move();
+        }
     }
 
     //Function for moving player
@@ -104,7 +108,6 @@ public class PlayerController : MonoBehaviour {
         {
             Damage(proj.GetDamage());
             proj.Hit();
-            Debug.Log("Hit by Projectile");
         }
     }
 
@@ -114,8 +117,23 @@ public class PlayerController : MonoBehaviour {
 
         if (health <= 0)
         {
-            AudioSource.PlayClipAtPoint(die, transform.position);
-            Destroy(gameObject);
+            Die();
+            
         }
+    }
+
+    void Die()
+    {
+        AudioSource.PlayClipAtPoint(die, transform.position);
+        alive = false;
+        CancelInvoke("Fire");
+        GetComponent<SpriteRenderer>().enabled = false;
+        transform.GetChild(0).gameObject.SetActive(false);
+        Invoke("NewScene", 3f);
+    }
+
+    void NewScene()
+    {
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().LoadLevel("GameOver");
     }
 }

@@ -54,7 +54,6 @@ public class Enemy : MonoBehaviour {
         {
             Damage(proj.GetDamage());
             proj.Hit();
-            Debug.Log("Hit by Projectile");
         }
     }
 
