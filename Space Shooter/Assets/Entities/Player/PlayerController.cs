@@ -15,8 +15,11 @@ public class PlayerController : MonoBehaviour {
     float xMin, xMax, yMin, yMax;
     float padding = 0.5f;
     bool alive = true;
+    float maxHealth = 0;
+    int livesNum = 3;
 
     private Vector3 MoveVector;
+    private PlayerLivesUI livesUi;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +34,10 @@ public class PlayerController : MonoBehaviour {
 
         yMin = leftMost.y + padding;
         yMax = rightMost.y;
+
+        livesUi = FindObjectOfType<PlayerLivesUI>();
+
+        maxHealth = health;
     }
 	
 	// Update is called once per frame
@@ -67,6 +74,7 @@ public class PlayerController : MonoBehaviour {
         {
             MoveVector.x -= moveSpeed;
         }
+        
 
         //Adds movement vector to the current position
         transform.position += MoveVector * Time.deltaTime;
@@ -117,9 +125,28 @@ public class PlayerController : MonoBehaviour {
 
         if (health <= 0)
         {
-            Die();
-            
+            LoseLife();
         }
+    }
+
+    void LoseLife()
+    {
+        health = maxHealth;
+        livesNum--;
+
+        if(livesNum < 1)
+        {
+            Die();
+        }
+
+        livesUi.RemoveLife();
+    }
+
+    public void AddLife()
+    {
+        livesNum++;
+
+        livesUi.AddLife();
     }
 
     void Die()

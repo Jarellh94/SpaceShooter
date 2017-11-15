@@ -14,8 +14,4 @@ public class ScoreDisplay : MonoBehaviour {
         ScoreKeeper.Reset();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
