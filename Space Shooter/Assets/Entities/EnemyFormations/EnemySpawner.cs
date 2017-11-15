@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefabs;
     public float width = 10f;
     public float height = 5f;
 
@@ -16,8 +17,11 @@ public class EnemySpawner : MonoBehaviour
     float xMin;
     public int startIndex = 0;
 
-	// Use this for initialization
-	void Start () {
+    public int numDefeated = 0;//Number of enemies killed
+    public int numBetweenWaves = 10;
+
+    // Use this for initialization
+    void Start () {
 
         SpawnUntilFull();
 
@@ -68,6 +72,7 @@ public class EnemySpawner : MonoBehaviour
                 return false;
         }
 
+        numDefeated += 5;
         return true;
     }
 
@@ -83,22 +88,19 @@ public class EnemySpawner : MonoBehaviour
 
         return null;
     }
-
-    void SpawnEnemies()
-    {
-        foreach (Transform child in transform)
-        {
-            GameObject enemy = (GameObject)Instantiate(enemyPrefab, child, false);
-        }
-    }
-
+    
     void SpawnUntilFull()
     {
         Transform freePosition = NextFreePosition(startIndex);
 
         if (freePosition != null)
         {
-            GameObject enemy = (GameObject)Instantiate(enemyPrefab, freePosition, false);
+            //GameObject enemy = (GameObject)Instantiate(enemyPrefab, freePosition, false);
+            
+            int spawnLevel;
+            spawnLevel = Mathf.FloorToInt(numDefeated / numBetweenWaves);//How difficult the enemies should be at this stage in the game.
+
+            GameObject enemy = (GameObject)Instantiate(enemyPrefabs[Random.Range(0, Mathf.Clamp(spawnLevel, 0, enemyPrefabs.Count))], freePosition, false);
             startIndex++;
         }
 

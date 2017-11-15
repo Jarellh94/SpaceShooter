@@ -127,7 +127,7 @@ Prefab:
     - target: {fileID: 224534727193625038, guid: 51f8451f2ab7a1148b932bb1803b5976,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.13600159
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224534727193625038, guid: 51f8451f2ab7a1148b932bb1803b5976,
         type: 2}
@@ -11326,6 +11326,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1142053825587124, guid: 6c2103f17f66ddf4fb187bdb039b7192,
     type: 2}
+  enemyPrefabs:
+  - {fileID: 1142053825587124, guid: 6c2103f17f66ddf4fb187bdb039b7192, type: 2}
+  - {fileID: 1142053825587124, guid: 11d3849e4cf46eb4eafa21780e578dba, type: 2}
+  - {fileID: 1142053825587124, guid: 64a5b309fb06c0548a873075de85e262, type: 2}
   width: 11.8
   height: 5
   moveSpeed: 2

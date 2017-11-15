@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50060376207837470}
   - component: {fileID: 95981079081764776}
   m_Layer: 9
-  m_Name: EnemyTier1
+  m_Name: EnemyTier2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,8 +122,8 @@ MonoBehaviour:
   rangeMin: 1
   projectileSpeed: 7
   shootInterval: 2
-  health: 100
-  scoreValue: 100
+  health: 150
+  scoreValue: 150
   shoot: {fileID: 8300000, guid: 55f70869ed87bd348ad69c4acc004d94, type: 3}
   die: {fileID: 8300000, guid: 1778e299c64d0204d9ecf9d33100deff, type: 3}
 --- !u!212 &212359502278841916
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_SortingLayerID: 987784655
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 309e38ff49079054f8ab7f775b17d9e6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3f816965a6bd62f4b80ebee832f56790, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
