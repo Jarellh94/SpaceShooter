@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1687917586202046, guid: d86f458a2df21a740a6742d2222ef4f6, type: 2}
+  explosion: {fileID: 1248841984465548, guid: 0fc3e50a38a3b8143a6e9d30cfcdb3d7, type: 2}
   rangeMax: 100
   rangeMin: 1
   projectileSpeed: 7

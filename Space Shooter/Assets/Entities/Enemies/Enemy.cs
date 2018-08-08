@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
     public GameObject projectile;
+    public GameObject explosion;
     public int rangeMax = 25, rangeMin = 1;
     public float projectileSpeed = 5f;
     public float shootInterval = 2f;
@@ -65,6 +66,7 @@ public class Enemy : MonoBehaviour {
         {
             AudioSource.PlayClipAtPoint(die, transform.position);
             keeper.Score(scoreValue);
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
